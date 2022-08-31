@@ -1,0 +1,36 @@
+#buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 50vmin;
+  height: 5vmin;
+  margin: 0 auto;
+
+  .fa-backward {
+    transform: translateX(-1vmin);
+  }
+  .fa-forward {
+    transform: translateX(1vmin);
+  }
+  .rotate-animation {
+    animation: rotate 300ms linear 1 normal forwards;
+  }
+  .left-animation {
+    animation: slide-left 300ms ease 1 normal forwards;
+  }
+  .right-animation {
+    animation: slide-right 300ms ease 1 normal forwards;
+  }
+}
+
+.button {
+  background-color: white;
+  width: 15vmin;
+  border: none;
+  border-radius: 0.5vmin;
+  font-family: inherit;
+  font-size: 2vmin;
+}
+
+.hidden {
+  visibility: hidden;
+}

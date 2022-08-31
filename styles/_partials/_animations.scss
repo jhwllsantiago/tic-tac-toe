@@ -1,0 +1,26 @@
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes slide-left {
+  from {
+    transform: translateX(0vmin);
+  }
+  to {
+    transform: translateX(-1vmin);
+  }
+}
+
+@keyframes slide-right {
+  from {
+    transform: translateX(0vmin);
+  }
+  to {
+    transform: translateX(1vmin);
+  }
+}

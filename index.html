@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TIC TAC TOE</title>
+    <link rel="icon" href="./assets/icon.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Roboto+Condensed&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <script src="./scripts/index.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/ee89b5ee3e.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h1>TIC TAC TOE</h1>
+    <section id="players">
+      <div id="player-x">
+        <label>Player X:</label>
+        <input
+          type="text"
+          placeholder="John"
+          autofocus
+          maxlength="10"
+          spellcheck="false"
+        />
+      </div>
+      <div id="player-o" class="none">
+        <label>Player O:</label>
+        <input
+          type="text"
+          placeholder="Jane"
+          autofocus
+          maxlength="10"
+          spellcheck="false"
+        />
+      </div>
+      <div>
+        <p id="message" class="none"></p>
+      </div>
+    </section>
+    <section id="board">
+      <div id="cell00" class="cell"></div>
+      <div id="cell01" class="cell"></div>
+      <div id="cell02" class="cell"></div>
+      <div id="cell10" class="cell"></div>
+      <div id="cell11" class="cell"></div>
+      <div id="cell12" class="cell"></div>
+      <div id="cell20" class="cell"></div>
+      <div id="cell21" class="cell"></div>
+      <div id="cell22" class="cell"></div>
+    </section>
+    <section id="buttons">
+      <button id="back" class="button hidden">
+        <i class="fa-solid fa-backward"></i> BACK
+      </button>
+      <button id="restart" class="button">
+        <i class="fa-solid fa-rotate"></i> RESTART
+      </button>
+      <button id="next" class="button hidden">
+        NEXT <i class="fa-solid fa-forward"></i>
+      </button>
+    </section>
+  </body>
+</html>

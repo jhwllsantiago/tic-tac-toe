@@ -1,0 +1,220 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: antiquewhite;
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-family: "Roboto Condensed", sans-serif;
+}
+body h1 {
+  margin: 10vmin 0 1vmin 0;
+  font-size: 4vmin;
+}
+
+.none {
+  display: none;
+}
+
+#players {
+  font-size: 2.5vmin;
+  margin-bottom: 2vmin;
+}
+#players input {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  border-radius: 0.5vmin;
+  outline: none;
+  padding: 0.5vmin;
+  width: 12vmin;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+}
+#players p {
+  padding: 0.5vmin 0;
+}
+
+#board {
+  background-color: rgb(135, 88, 18);
+  display: grid;
+  grid-template-rows: 17vmin 17vmin 17vmin;
+  grid-template-columns: 17vmin 17vmin 17vmin;
+  gap: 0.4vmin;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 3vmin auto;
+  padding: 0.4vmin;
+  border-radius: 0.4vmin;
+  font-family: "Comfortaa", cursive;
+}
+#board .cell {
+  background-color: antiquewhite;
+  cursor: pointer;
+  font-size: 17vmin;
+}
+#board .clicked {
+  background-color: rgb(247, 221, 187);
+  pointer-events: none;
+}
+#board .winning-cell {
+  background-color: rgb(242, 198, 141);
+}
+
+#buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 50vmin;
+  height: 5vmin;
+  margin: 0 auto;
+}
+#buttons .fa-backward {
+  transform: translateX(-1vmin);
+}
+#buttons .fa-forward {
+  transform: translateX(1vmin);
+}
+#buttons .rotate-animation {
+  -webkit-animation: rotate 300ms linear 1 normal forwards;
+          animation: rotate 300ms linear 1 normal forwards;
+}
+#buttons .left-animation {
+  -webkit-animation: slide-left 300ms ease 1 normal forwards;
+          animation: slide-left 300ms ease 1 normal forwards;
+}
+#buttons .right-animation {
+  -webkit-animation: slide-right 300ms ease 1 normal forwards;
+          animation: slide-right 300ms ease 1 normal forwards;
+}
+
+.button {
+  background-color: white;
+  width: 15vmin;
+  border: none;
+  border-radius: 0.5vmin;
+  font-family: inherit;
+  font-size: 2vmin;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+@-webkit-keyframes slide-left {
+  from {
+    transform: translateX(0vmin);
+  }
+  to {
+    transform: translateX(-1vmin);
+  }
+}
+@keyframes slide-left {
+  from {
+    transform: translateX(0vmin);
+  }
+  to {
+    transform: translateX(-1vmin);
+  }
+}
+@-webkit-keyframes slide-right {
+  from {
+    transform: translateX(0vmin);
+  }
+  to {
+    transform: translateX(1vmin);
+  }
+}
+@keyframes slide-right {
+  from {
+    transform: translateX(0vmin);
+  }
+  to {
+    transform: translateX(1vmin);
+  }
+}
+@media screen and (hover: hover) {
+  button:hover {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+  }
+}
+@media screen and (hover: none) {
+  body {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+@media screen and (max-width: 768px) {
+  body h1 {
+    font-size: 4.4vmin;
+  }
+  #players {
+    font-size: 3vmin;
+  }
+  #board {
+    grid-template-rows: 21vmin 21vmin 21vmin;
+    grid-template-columns: 21vmin 21vmin 21vmin;
+  }
+  #board .cell {
+    font-size: 21vmin;
+  }
+  #buttons {
+    width: 60vmin;
+    height: 6vmin;
+  }
+  .button {
+    width: 19vmin;
+    font-size: 2.2vmin;
+  }
+}
+@media screen and (max-width: 480px) {
+  body h1 {
+    font-size: 5vmin;
+  }
+  #players {
+    font-size: 3.4vmin;
+  }
+  #board {
+    grid-template-rows: 25vmin 25vmin 25vmin;
+    grid-template-columns: 25vmin 25vmin 25vmin;
+    gap: 0.6vmin;
+    padding: 0.6vmin;
+  }
+  #board .cell {
+    font-size: 25vmin;
+  }
+  #buttons {
+    width: 70vmin;
+    height: 7vmin;
+  }
+  .button {
+    width: 22vmin;
+    font-size: 2.7vmin;
+  }
+}/*# sourceMappingURL=main.css.map */
