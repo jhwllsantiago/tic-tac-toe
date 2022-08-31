@@ -9,12 +9,9 @@ const message = document.querySelector("#message");
 const restartIcon = document.querySelector(".fa-rotate");
 const backIcon = document.querySelector(".fa-backward");
 const nextIcon = document.querySelector(".fa-forward");
+const cells = document.querySelectorAll(".cell");
 
-let array = [
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
-];
+let array = [[], [], []];
 let playerX;
 let playerO;
 let move = 0;
@@ -24,7 +21,7 @@ let history = [];
 inputX.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
-    if (hasName(inputX)) {
+    if (inputX.value.trim()) {
       playerX = inputX.value;
       inputX.value = "";
       divX.classList.add("none");
@@ -37,7 +34,7 @@ inputO.addEventListener("keypress", (event) => {
     event.preventDefault();
     if (inputO.value === playerX)
       alert(`Hey ${playerX}, this is a two-player game.`);
-    else if (hasName(inputO)) {
+    else if (inputO.value.trim()) {
       playerO = inputO.value;
       inputO.value = "";
       divO.classList.add("none");
@@ -46,110 +43,86 @@ inputO.addEventListener("keypress", (event) => {
     } else alert("Please enter player name.");
   }
 });
-function hasName(input) {
-  let value = input.value.trim();
-  if (value.length > 0 && value !== " ") return true;
-  else return false;
-}
 //#endregion
 //#region cell event listerners
-for (let i = 0; i < 3; i++) {
-  for (let j = 0; j < 3; j++) {
-    document.querySelector("#cell" + i + j).addEventListener("click", () => {
+for (let row = 0; row < 3; row++) {
+  for (let col = 0; col < 3; col++) {
+    const cell = document.querySelector("#cell" + row + col);
+    cell.addEventListener("click", () => {
       if (playerX === undefined || playerO === undefined)
         alert("Please enter player name.");
-      else clicked(i, j);
+      else {
+        cell.classList.add("clicked");
+        clicked(row, col);
+      }
     });
-    if (matchMedia("(hover: hover)").matches) {
-      document
-        .querySelector("#cell" + i + j)
-        .addEventListener("mouseover", () => {
-          let hoverText;
-          if (move % 2 === 0) hoverText = "X";
-          else hoverText = "O";
-          document.querySelector("#cell" + i + j).textContent = hoverText;
-        });
-      document
-        .querySelector("#cell" + i + j)
-        .addEventListener("mouseout", () => {
-          if (
-            !document
-              .querySelector("#cell" + i + j)
-              .classList.contains("clicked")
-          ) {
-            document.querySelector("#cell" + i + j).textContent = "";
-          }
-        });
-    }
+  }
+}
+if (matchMedia("(hover: hover)").matches) {
+  for (const cell of cells) {
+    cell.addEventListener("mouseover", () => {
+      if (move % 2 === 0) cell.textContent = "X";
+      else cell.textContent = "O";
+    });
+    cell.addEventListener("mouseout", () => {
+      if (!cell.classList.contains("clicked")) cell.textContent = "";
+    });
   }
 }
 //#endregion
 //#region cell functions
-function clicked(row, column) {
-  document.querySelector("#cell" + row + column).classList.add("clicked");
+function clicked(row, col) {
   if (move % 2 === 0) {
-    array[row][column] = "X";
+    array[row][col] = "X";
     message.textContent = playerO + "'s turn";
   } else {
-    array[row][column] = "O";
+    array[row][col] = "O";
     message.textContent = playerX + "'s turn";
   }
   history[move] = JSON.parse(JSON.stringify(array)); //deep copy of array
   displayArray(array);
   checkWinner();
   move++;
-  console.log("history length", move);
 }
 function displayArray(array) {
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      document.querySelector("#cell" + i + j).textContent = array[i][j];
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 3; col++) {
+      document.querySelector("#cell" + row + col).textContent = array[row][col];
     }
   }
 }
 function checkWinner() {
-  if (hasPattern(0, 0, 0, 1, 0, 2)) declareWinner(0, 0, 0, 1, 0, 2);
-  else if (hasPattern(1, 0, 1, 1, 1, 2)) declareWinner(1, 0, 1, 1, 1, 2);
-  else if (hasPattern(2, 0, 2, 1, 2, 2)) declareWinner(2, 0, 2, 1, 2, 2);
-  else if (hasPattern(0, 0, 1, 0, 2, 0)) declareWinner(0, 0, 1, 0, 2, 0);
-  else if (hasPattern(0, 1, 1, 1, 2, 1)) declareWinner(0, 1, 1, 1, 2, 1);
-  else if (hasPattern(0, 2, 1, 2, 2, 2)) declareWinner(0, 2, 1, 2, 2, 2);
-  else if (hasPattern(0, 0, 1, 1, 2, 2)) declareWinner(0, 0, 1, 1, 2, 2);
-  else if (hasPattern(0, 2, 1, 1, 2, 0)) declareWinner(0, 2, 1, 1, 2, 0);
+  if (hasPattern(0, 0, 0, 1, 0, 2)) postGame();
+  else if (hasPattern(1, 0, 1, 1, 1, 2)) postGame();
+  else if (hasPattern(2, 0, 2, 1, 2, 2)) postGame();
+  else if (hasPattern(0, 0, 1, 0, 2, 0)) postGame();
+  else if (hasPattern(0, 1, 1, 1, 2, 1)) postGame();
+  else if (hasPattern(0, 2, 1, 2, 2, 2)) postGame();
+  else if (hasPattern(0, 0, 1, 1, 2, 2)) postGame();
+  else if (hasPattern(0, 2, 1, 1, 2, 0)) postGame();
   else if (move >= 8) {
     message.textContent = "You are both winners.";
     back.classList.remove("hidden");
     move--;
   }
 }
-function hasPattern(row1, column1, row2, column2, row3, column3) {
+function hasPattern(row1, col1, row2, col2, row3, col3) {
   if (
-    array[row1][column1] !== "" &&
-    array[row1][column1] === array[row2][column2] &&
-    array[row1][column1] === array[row3][column3]
-  )
+    array[row1][col1] !== undefined &&
+    array[row1][col1] === array[row2][col2] &&
+    array[row1][col1] === array[row3][col3]
+  ) {
+    document.querySelector("#cell" + row1 + col1).classList.add("winning-cell");
+    document.querySelector("#cell" + row2 + col2).classList.add("winning-cell");
+    document.querySelector("#cell" + row3 + col3).classList.add("winning-cell");
     return true;
-  else false;
+  } else false;
 }
-function declareWinner(row1, column1, row2, column2, row3, column3) {
-  document
-    .querySelector("#cell" + row1 + column1)
-    .classList.add("winning-cell");
-  document
-    .querySelector("#cell" + row2 + column2)
-    .classList.add("winning-cell");
-  document
-    .querySelector("#cell" + row3 + column3)
-    .classList.add("winning-cell");
-
+function postGame() {
   if (move % 2 === 0) message.textContent = `${playerX} is the winner!`;
   else message.textContent = `${playerO} is the winner!`;
 
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      document.querySelector("#cell" + i + j).classList.add("clicked");
-    }
-  }
+  for (const cell of cells) cell.classList.add("clicked");
   back.classList.remove("hidden");
   move--;
 }
@@ -169,11 +142,7 @@ function restartFunc() {
   animationFunc(restartIcon, "rotate-animation");
   back.classList.add("hidden");
   next.classList.add("hidden");
-  array = [
-    ["", "", ""],
-    ["", "", ""],
-    ["", "", ""],
-  ];
+  array = [[], [], []];
   history = [];
   move = 0;
   displayArray(array);
@@ -202,17 +171,12 @@ function nextFunc() {
 //#endregion
 //#region helper
 function clearCell(clear = "both") {
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      if (clear === "both" || clear === "clicked")
-        document.querySelector("#cell" + i + j).classList.remove("clicked");
-      if (clear === "both" || clear === "winning")
-        document
-          .querySelector("#cell" + i + j)
-          .classList.remove("winning-cell");
-    }
-  }
+  if (clear === "both" || clear === "clicked")
+    for (const cell of cells) cell.classList.remove("clicked");
+  if (clear === "both" || clear === "winning")
+    for (const cell of cells) cell.classList.remove("winning-cell");
 }
+
 function animationFunc(icon, animation) {
   icon.classList.remove(animation);
   window.requestAnimationFrame(() => {
