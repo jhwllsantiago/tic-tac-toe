@@ -58,23 +58,22 @@ export function checkForPattern() {
     const cellTwo = document.querySelector("#cell" + pattern[2] + pattern[3]);
     const cellThree = document.querySelector("#cell" + pattern[4] + pattern[5]);
 
-    //is there a pattern made
     if (
       array[pattern[0]][pattern[1]] !== undefined &&
       array[pattern[0]][pattern[1]] === array[pattern[2]][pattern[3]] &&
       array[pattern[0]][pattern[1]] === array[pattern[4]][pattern[5]]
     ) {
-      //yes and highlight the cells
       cellOne.classList.add("highlighted");
       cellTwo.classList.add("highlighted");
       cellThree.classList.add("highlighted");
       winner();
-    } else if (move >= 8) {
-      //no and check if tie
-      message.textContent = "You are both winners.";
-      back.style.visibility = "visible";
-      move--;
+      return;
     }
+  }
+  if (move >= 8) {
+    message.textContent = "You are both winners.";
+    back.style.visibility = "visible";
+    move--;
   }
 }
 function winner() {
