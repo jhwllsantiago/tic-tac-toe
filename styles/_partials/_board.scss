@@ -21,10 +21,9 @@ $line: 0.4vmin;
 
   .clicked {
     background-color: rgb(247, 221, 187);
-    pointer-events: none;
   }
 
-  .winning-cell {
+  .highlighted {
     background-color: rgb(242, 198, 141);
   }
 }

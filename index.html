@@ -13,7 +13,11 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles/main.css" />
-    <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/global.js" defer></script>
+    <script src="./scripts/players.js" type="module" defer></script>
+    <script src="./scripts/board.js" type="module" defer></script>
+    <script src="./scripts/buttons.js" type="module" defer></script>
+    <script src="./scripts/helper.js" type="module" defer></script>
     <script
       src="https://kit.fontawesome.com/ee89b5ee3e.js"
       crossorigin="anonymous"
@@ -32,7 +36,7 @@
           spellcheck="false"
         />
       </div>
-      <div id="player-o" class="none">
+      <div id="player-o">
         <label>Player O:</label>
         <input
           type="text"
@@ -43,7 +47,7 @@
         />
       </div>
       <div>
-        <p id="message" class="none"></p>
+        <p id="message"></p>
       </div>
     </section>
     <section id="board">
@@ -58,13 +62,13 @@
       <div id="cell22" class="cell"></div>
     </section>
     <section id="buttons">
-      <button id="back" class="button hidden">
+      <button id="back" class="button">
         <i class="fa-solid fa-backward"></i> BACK
       </button>
       <button id="restart" class="button">
         <i class="fa-solid fa-rotate"></i> RESTART
       </button>
-      <button id="next" class="button hidden">
+      <button id="next" class="button">
         NEXT <i class="fa-solid fa-forward"></i>
       </button>
     </section>
