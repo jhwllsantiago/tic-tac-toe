@@ -36,17 +36,18 @@ function restartFunc() {
     ],
   ];
   move = 0;
-  message.textContent = playerX + "'s turn";
+  message.textContent = playerOne + "'s turn";
   clearCell(1, 1, 1);
 }
 
 replay.addEventListener("click", () => {
   undo.style.visibility = "hidden";
   redo.style.visibility = "hidden";
+  clearInterval(interval);
   move = 0;
   clearCell(1, 1, 1);
   for (const cell of cells) cell.style.pointerEvents = "none";
-  message.textContent = playerX + "'s turn";
+  message.textContent = playerOne + "'s turn";
   interval = setInterval(replayFunc, 750);
 });
 function replayFunc() {
@@ -97,8 +98,8 @@ function redoFunc() {
 }
 
 function refresh() {
-  if (move % 2 === 0) message.textContent = playerX + "'s turn";
-  else message.textContent = playerO + "'s turn";
+  if (move % 2 === 0) message.textContent = playerOne + "'s turn";
+  else message.textContent = playerTwo + "'s turn";
   for (const cell of cells)
     if (cell.textContent !== "") {
       cell.classList.add("clicked");

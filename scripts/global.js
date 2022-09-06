@@ -1,7 +1,7 @@
 const cells = document.querySelectorAll(".cell");
 
-let playerX;
-let playerO;
+let playerOne;
+let playerTwo;
 
 let array = [
   ["", "", ""],

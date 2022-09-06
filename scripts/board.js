@@ -2,29 +2,26 @@ import { displayArray } from "./helper.js";
 import { undo, redo, replay } from "./buttons.js";
 
 const patterns = [
-  [0, 0, 0, 1, 0, 2],
-  [1, 0, 1, 1, 1, 2],
-  [2, 0, 2, 1, 2, 2],
-  [0, 0, 1, 0, 2, 0],
-  [0, 1, 1, 1, 2, 1],
-  [0, 2, 1, 2, 2, 2],
-  [0, 0, 1, 1, 2, 2],
-  [0, 2, 1, 1, 2, 0],
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
 ];
-//[row1, col1, row2, col2, row3, col3]
+//[cellOne, cellTwo, cellThree]
 
-for (let row = 0; row < 3; row++) {
-  for (let col = 0; col < 3; col++) {
-    const cell = document.querySelector("#cell" + row + col);
-    cell.addEventListener("click", () => {
-      if (!playerX || !playerO) alert("Please enter player name.");
-      else {
-        cell.classList.add("clicked");
-        cell.style.pointerEvents = "none";
-        assignLetter(row, col);
-      }
-    });
-  }
+for (let i = 0; i < cells.length; i++) {
+  cells[i].addEventListener("click", () => {
+    if (!playerOne || !playerTwo) alert("Please enter player name.");
+    else {
+      cells[i].classList.add("clicked");
+      cells[i].style.pointerEvents = "none";
+      assignLetter(i);
+    }
+  });
 }
 if (matchMedia("(hover: hover)").matches) {
   for (const cell of cells) {
@@ -38,16 +35,18 @@ if (matchMedia("(hover: hover)").matches) {
   }
 }
 
-function assignLetter(row, col) {
+function assignLetter(i) {
   undo.style.visibility = "visible";
   checkForUndo();
   move++;
+  let col = i % 3;
+  let row = (i - col) / 3;
   if (move % 2 === 1) {
     array[row][col] = "X";
-    message.textContent = playerO + "'s turn";
+    message.textContent = playerTwo + "'s turn";
   } else {
     array[row][col] = "O";
-    message.textContent = playerX + "'s turn";
+    message.textContent = playerOne + "'s turn";
   }
   history[move] = JSON.parse(JSON.stringify(array)); //deep copy of array
   displayArray(array);
@@ -64,14 +63,13 @@ function checkForUndo() {
 
 export function checkForPattern() {
   for (const pattern of patterns) {
-    const cellOne = document.querySelector("#cell" + pattern[0] + pattern[1]);
-    const cellTwo = document.querySelector("#cell" + pattern[2] + pattern[3]);
-    const cellThree = document.querySelector("#cell" + pattern[4] + pattern[5]);
-
+    const cellOne = cells[pattern[0]];
+    const cellTwo = cells[pattern[1]];
+    const cellThree = cells[pattern[2]];
     if (
-      array[pattern[0]][pattern[1]] !== "" &&
-      array[pattern[0]][pattern[1]] === array[pattern[2]][pattern[3]] &&
-      array[pattern[0]][pattern[1]] === array[pattern[4]][pattern[5]]
+      cellOne.textContent !== "" &&
+      cellOne.textContent === cellTwo.textContent &&
+      cellOne.textContent === cellThree.textContent
     ) {
       cellOne.classList.add("highlighted");
       cellTwo.classList.add("highlighted");
@@ -86,8 +84,8 @@ export function checkForPattern() {
   }
 }
 function winner() {
-  if (move % 2 === 1) message.textContent = `${playerX} is the winner!`;
-  else message.textContent = `${playerO} is the winner!`;
+  if (move % 2 === 1) message.textContent = `${playerOne} is the winner!`;
+  else message.textContent = `${playerTwo} is the winner!`;
 
   for (const cell of cells) {
     cell.classList.add("clicked");

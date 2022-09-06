@@ -1,36 +1,36 @@
-const divX = document.querySelector("#player-x");
-const divO = document.querySelector("#player-o");
-const inputX = document.querySelector("#player-x input");
-const inputO = document.querySelector("#player-o input");
+const divOne = document.querySelector("#player-one");
+const divTwo = document.querySelector("#player-two");
+const inputOne = document.querySelector("#player-one input");
+const inputTwo = document.querySelector("#player-two input");
 const message = document.querySelector("#message");
 
-(() => {
-  divO.style.display = "none";
-  message.style.display = "none";
-})();
+divTwo.style.display = "none";
+message.style.display = "none";
 
-inputX.addEventListener("keypress", (event) => {
+inputOne.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
-    if (inputX.value.trim()) {
-      playerX = inputX.value.trim();
-      inputX.value = "";
-      divX.style.display = "none";
-      divO.style.display = "block";
+    playerOne = inputOne.value.trim();
+    if (playerOne) {
+      localStorage.setItem("playerOne", playerOne);
+      inputOne.value = "";
+      divOne.style.display = "none";
+      divTwo.style.display = "block";
     } else alert("Please enter player name.");
   }
 });
-inputO.addEventListener("keypress", (event) => {
+inputTwo.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
-    if (inputO.value === playerX)
-      alert(`Hey ${playerX}, this is a two-player game.`);
-    else if (inputO.value.trim()) {
-      playerO = inputO.value.trim();
-      inputO.value = "";
-      divO.style.display = "none";
+    playerTwo = inputTwo.value.trim();
+    if (playerTwo === playerOne)
+      alert(`Hey ${playerOne}, this is a two-player game.`);
+    else if (playerTwo) {
+      localStorage.setItem("playerTwo", playerTwo);
+      inputTwo.value = "";
+      divTwo.style.display = "none";
       message.style.display = "block";
-      message.textContent = playerX + "'s turn";
+      message.textContent = playerOne + "'s turn";
     } else alert("Please enter player name.");
   }
 });

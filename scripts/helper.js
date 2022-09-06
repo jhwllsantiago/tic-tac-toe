@@ -1,8 +1,8 @@
 export const displayArray = (array) => {
-  for (let row = 0; row < 3; row++) {
-    for (let col = 0; col < 3; col++) {
-      document.querySelector("#cell" + row + col).textContent = array[row][col];
-    }
+  for (let i = 0; i < cells.length; i++) {
+    let col = i % 3;
+    let row = (i - col) / 3;
+    cells[i].textContent = array[row][col];
   }
 };
 
