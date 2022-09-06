@@ -1,4 +1,4 @@
-@keyframes rotate {
+@keyframes rotate-cw {
   from {
     transform: rotate(0deg);
   }
@@ -7,20 +7,11 @@
   }
 }
 
-@keyframes slide-left {
+@keyframes rotate-ccw {
   from {
-    transform: translateX(0vmin);
+    transform: rotate(0deg);
   }
   to {
-    transform: translateX(-1vmin);
-  }
-}
-
-@keyframes slide-right {
-  from {
-    transform: translateX(0vmin);
-  }
-  to {
-    transform: translateX(1vmin);
+    transform: rotate(-359deg);
   }
 }

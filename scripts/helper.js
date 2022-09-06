@@ -6,14 +6,15 @@ export const displayArray = (array) => {
   }
 };
 
-export const clearCell = (clear = "both") => {
-  if (clear === "both" || clear === "clicked")
+export const clearCell = (clicked, highlighted, letter) => {
+  if (clicked)
     for (const cell of cells) {
       cell.classList.remove("clicked");
       cell.style.pointerEvents = "all";
     }
-  if (clear === "both" || clear === "highlighted")
+  if (highlighted)
     for (const cell of cells) cell.classList.remove("highlighted");
+  if (letter) for (const cell of cells) cell.textContent = "";
 };
 
 export const animationFunc = (icon, animation) => {

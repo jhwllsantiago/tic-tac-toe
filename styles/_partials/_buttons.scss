@@ -1,25 +1,14 @@
 #buttons {
   display: flex;
   justify-content: space-between;
-  width: 50vmin;
   height: 5vmin;
+  width: 50vmin;
   margin: 0 auto;
+}
 
-  .fa-backward {
-    transform: translateX(-1vmin);
-  }
-  .fa-forward {
-    transform: translateX(1vmin);
-  }
-  .rotate-animation {
-    animation: rotate 300ms linear 1 normal forwards;
-  }
-  .left-animation {
-    animation: slide-left 300ms ease 1 normal forwards;
-  }
-  .right-animation {
-    animation: slide-right 300ms ease 1 normal forwards;
-  }
+#replay {
+  margin: 2vmin auto 0 auto;
+  height: 5vmin;
 }
 
 .button {
@@ -29,4 +18,17 @@
   border-radius: 0.5vmin;
   font-family: inherit;
   font-size: 2vmin;
+}
+
+.fa-arrow-left {
+  transform: translateX(-1vmin);
+}
+.fa-arrow-right {
+  transform: translateX(1vmin);
+}
+.rotate-cw {
+  animation: rotate-cw 200ms linear 1 normal forwards;
+}
+.rotate-ccw {
+  animation: rotate-ccw 200ms linear 1 normal forwards;
 }

@@ -67,27 +67,14 @@ body h1 {
 #buttons {
   display: flex;
   justify-content: space-between;
-  width: 50vmin;
   height: 5vmin;
+  width: 50vmin;
   margin: 0 auto;
 }
-#buttons .fa-backward {
-  transform: translateX(-1vmin);
-}
-#buttons .fa-forward {
-  transform: translateX(1vmin);
-}
-#buttons .rotate-animation {
-  -webkit-animation: rotate 300ms linear 1 normal forwards;
-          animation: rotate 300ms linear 1 normal forwards;
-}
-#buttons .left-animation {
-  -webkit-animation: slide-left 300ms ease 1 normal forwards;
-          animation: slide-left 300ms ease 1 normal forwards;
-}
-#buttons .right-animation {
-  -webkit-animation: slide-right 300ms ease 1 normal forwards;
-          animation: slide-right 300ms ease 1 normal forwards;
+
+#replay {
+  margin: 2vmin auto 0 auto;
+  height: 5vmin;
 }
 
 .button {
@@ -99,7 +86,25 @@ body h1 {
   font-size: 2vmin;
 }
 
-@-webkit-keyframes rotate {
+.fa-arrow-left {
+  transform: translateX(-1vmin);
+}
+
+.fa-arrow-right {
+  transform: translateX(1vmin);
+}
+
+.rotate-cw {
+  -webkit-animation: rotate-cw 200ms linear 1 normal forwards;
+          animation: rotate-cw 200ms linear 1 normal forwards;
+}
+
+.rotate-ccw {
+  -webkit-animation: rotate-ccw 200ms linear 1 normal forwards;
+          animation: rotate-ccw 200ms linear 1 normal forwards;
+}
+
+@-webkit-keyframes rotate-cw {
   from {
     transform: rotate(0deg);
   }
@@ -108,7 +113,7 @@ body h1 {
   }
 }
 
-@keyframes rotate {
+@keyframes rotate-cw {
   from {
     transform: rotate(0deg);
   }
@@ -116,36 +121,20 @@ body h1 {
     transform: rotate(359deg);
   }
 }
-@-webkit-keyframes slide-left {
+@-webkit-keyframes rotate-ccw {
   from {
-    transform: translateX(0vmin);
+    transform: rotate(0deg);
   }
   to {
-    transform: translateX(-1vmin);
+    transform: rotate(-359deg);
   }
 }
-@keyframes slide-left {
+@keyframes rotate-ccw {
   from {
-    transform: translateX(0vmin);
+    transform: rotate(0deg);
   }
   to {
-    transform: translateX(-1vmin);
-  }
-}
-@-webkit-keyframes slide-right {
-  from {
-    transform: translateX(0vmin);
-  }
-  to {
-    transform: translateX(1vmin);
-  }
-}
-@keyframes slide-right {
-  from {
-    transform: translateX(0vmin);
-  }
-  to {
-    transform: translateX(1vmin);
+    transform: rotate(-359deg);
   }
 }
 @media screen and (hover: hover) {

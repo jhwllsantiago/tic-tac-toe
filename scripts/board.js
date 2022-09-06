@@ -1,5 +1,5 @@
 import { displayArray } from "./helper.js";
-import { back } from "./buttons.js";
+import { undo, redo, replay } from "./buttons.js";
 
 const patterns = [
   [0, 0, 0, 1, 0, 2],
@@ -39,7 +39,10 @@ if (matchMedia("(hover: hover)").matches) {
 }
 
 function assignLetter(row, col) {
-  if (move % 2 === 0) {
+  undo.style.visibility = "visible";
+  checkForUndo();
+  move++;
+  if (move % 2 === 1) {
     array[row][col] = "X";
     message.textContent = playerO + "'s turn";
   } else {
@@ -49,7 +52,14 @@ function assignLetter(row, col) {
   history[move] = JSON.parse(JSON.stringify(array)); //deep copy of array
   displayArray(array);
   checkForPattern();
-  move++;
+}
+
+function checkForUndo() {
+  if (move !== history.length - 1) {
+    while (history.length - 1 !== move) history.pop();
+    redo.style.visibility = "hidden";
+    array = JSON.parse(JSON.stringify(history[move]));
+  }
 }
 
 export function checkForPattern() {
@@ -59,7 +69,7 @@ export function checkForPattern() {
     const cellThree = document.querySelector("#cell" + pattern[4] + pattern[5]);
 
     if (
-      array[pattern[0]][pattern[1]] !== undefined &&
+      array[pattern[0]][pattern[1]] !== "" &&
       array[pattern[0]][pattern[1]] === array[pattern[2]][pattern[3]] &&
       array[pattern[0]][pattern[1]] === array[pattern[4]][pattern[5]]
     ) {
@@ -70,20 +80,18 @@ export function checkForPattern() {
       return;
     }
   }
-  if (move >= 8) {
+  if (move >= 9) {
     message.textContent = "You are both winners.";
-    back.style.visibility = "visible";
-    move--;
+    replay.style.visibility = "visible";
   }
 }
 function winner() {
-  if (move % 2 === 0) message.textContent = `${playerX} is the winner!`;
+  if (move % 2 === 1) message.textContent = `${playerX} is the winner!`;
   else message.textContent = `${playerO} is the winner!`;
 
   for (const cell of cells) {
     cell.classList.add("clicked");
     cell.style.pointerEvents = "none";
   }
-  back.style.visibility = "visible";
-  move--;
+  replay.style.visibility = "visible";
 }
