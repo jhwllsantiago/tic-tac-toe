@@ -7,14 +7,18 @@ export const displayArray = (array) => {
 };
 
 export const clearCell = (clicked, highlighted, letter) => {
-  if (clicked)
+  if (clicked) {
     for (const cell of cells) {
       cell.classList.remove("clicked");
       cell.style.pointerEvents = "all";
     }
-  if (highlighted)
+  }
+  if (highlighted) {
     for (const cell of cells) cell.classList.remove("highlighted");
-  if (letter) for (const cell of cells) cell.textContent = "";
+  }
+  if (letter) {
+    for (const cell of cells) cell.textContent = "";
+  }
 };
 
 export const animationFunc = (icon, animation) => {

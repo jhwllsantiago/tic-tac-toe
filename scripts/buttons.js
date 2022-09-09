@@ -1,5 +1,7 @@
 import { displayArray, clearCell, animationFunc } from "./helper.js";
 import { checkForPattern } from "./board.js";
+import { deductPoints } from "./score.js";
+import { swapNames } from "./players.js";
 
 const restart = document.querySelector("#restart");
 const restartIcon = document.querySelector(".fa-rotate");
@@ -9,6 +11,7 @@ const undoIcon = document.querySelector(".fa-rotate-left");
 const redoIcon = document.querySelector(".fa-rotate-right");
 export const replay = document.querySelector("#replay");
 let interval;
+export let isReplay = 0;
 
 const hideBtns = () => {
   replay.style.visibility = "hidden";
@@ -38,12 +41,15 @@ function restartFunc() {
   move = 0;
   message.textContent = playerOne + "'s turn";
   clearCell(1, 1, 1);
+  isReplay = 0;
 }
 
 replay.addEventListener("click", () => {
+  replay.style.pointerEvents = "none";
   undo.style.visibility = "hidden";
   redo.style.visibility = "hidden";
-  clearInterval(interval);
+  isReplay = 1;
+  if (wereNamesSwapped) swapNames();
   move = 0;
   clearCell(1, 1, 1);
   for (const cell of cells) cell.style.pointerEvents = "none";
@@ -58,6 +64,8 @@ function replayFunc() {
     if (move === history.length - 1) {
       checkForPattern();
       clearInterval(interval);
+      if (wereNamesSwapped) swapNames();
+      replay.style.pointerEvents = "all";
     }
   }
 }
@@ -65,6 +73,8 @@ function replayFunc() {
 undo.addEventListener("click", () => {
   animationFunc(undoIcon, "rotate-ccw");
   undoFunc();
+  if (hasWinner) deductPoints();
+  hasWinner = 0;
 });
 redo.addEventListener("click", () => {
   animationFunc(redoIcon, "rotate-cw");

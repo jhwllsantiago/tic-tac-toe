@@ -1,5 +1,6 @@
 import { displayArray } from "./helper.js";
-import { undo, redo, replay } from "./buttons.js";
+import { undo, redo, replay, isReplay } from "./buttons.js";
+import { addPoints } from "./score.js";
 
 const patterns = [
   [0, 1, 2],
@@ -75,12 +76,16 @@ export function checkForPattern() {
       cellTwo.classList.add("highlighted");
       cellThree.classList.add("highlighted");
       winner();
+      hasWinner = 1;
+      if (!isReplay) addPoints();
       return;
     }
   }
   if (move >= 9) {
     message.textContent = "You are both winners.";
     replay.style.visibility = "visible";
+    wereNamesSwapped = 0;
+    hasWinner = 0;
   }
 }
 function winner() {

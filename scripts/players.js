@@ -1,11 +1,31 @@
+import { nameLeft, nameRight } from "./score.js";
+
 const divOne = document.querySelector("#player-one");
 const divTwo = document.querySelector("#player-two");
 const inputOne = document.querySelector("#player-one input");
 const inputTwo = document.querySelector("#player-two input");
+const info = document.querySelector("#info");
 const message = document.querySelector("#message");
 
-divTwo.style.display = "none";
-message.style.display = "none";
+if (storedPlayerOne && storedPlayerTwo) {
+  playerOne = storedPlayerOne;
+  playerTwo = storedPlayerTwo;
+  message.textContent = playerOne + "'s turn";
+  divOne.style.display = "none";
+  divTwo.style.display = "none";
+} else if (storedPlayerOne) {
+  playerOne = storedPlayerOne;
+  divOne.style.display = "none";
+  info.style.display = "none";
+  inputTwo.focus();
+} else {
+  divTwo.style.display = "none";
+  info.style.display = "none";
+}
+
+export function swapNames() {
+  [playerOne, playerTwo] = [playerTwo, playerOne];
+}
 
 inputOne.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
@@ -16,6 +36,8 @@ inputOne.addEventListener("keypress", (event) => {
       inputOne.value = "";
       divOne.style.display = "none";
       divTwo.style.display = "block";
+      nameLeft.textContent = playerOne;
+      inputTwo.focus();
     } else alert("Please enter player name.");
   }
 });
@@ -29,8 +51,17 @@ inputTwo.addEventListener("keypress", (event) => {
       localStorage.setItem("playerTwo", playerTwo);
       inputTwo.value = "";
       divTwo.style.display = "none";
-      message.style.display = "block";
+      info.style.display = "grid";
+      nameRight.textContent = playerTwo;
       message.textContent = playerOne + "'s turn";
     } else alert("Please enter player name.");
+  }
+});
+
+message.addEventListener("click", () => {
+  const prompt = "You are about to delete player names and scores.\n\nCONFIRM?";
+  if (confirm(prompt) === true) {
+    localStorage.clear();
+    location.reload();
   }
 });
